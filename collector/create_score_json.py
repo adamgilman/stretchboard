@@ -3,6 +3,8 @@ from BeautifulSoup import BeautifulSoup
 from ordereddict import OrderedDict
 import simplejson as json
 
+output_file = "../output/scores/week_%s.json"
+
 def getTeamScoreRankFromSoup(soup):
 	try:
 		rank = soup.find("td", {'class' : re.compile(r'\bcompetitor-name\b') } ).find("span").text.strip("(").strip(")")
@@ -64,7 +66,7 @@ for week_number, week_url in weeks.iteritems():
 		current_game = game_scores[-1]
 		#printMatchResult(current_game)
 
-	f = open("week_%s.json" % week_number, 'w')
+	f = open(output_file % week_number, 'w')
 	f.write(json.dumps(game_scores))
 	f.close()
 
