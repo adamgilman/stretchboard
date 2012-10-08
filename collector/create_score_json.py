@@ -5,8 +5,8 @@ from ordereddict import OrderedDict
 from schedule import weeks
 from tools import getGamesSoupArray
 
-#output_file = "../output/scores/week_%s.json" #production
-output_file = "./debug/debug_week_%s.json" #dev
+output_file = "../output/scores/week_%s.json" #production
+#output_file = "./debug/debug_week_%s.json" #dev
 
 def getTeamScoreRankFromSoup(soup):
 	try:
