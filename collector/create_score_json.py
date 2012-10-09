@@ -55,7 +55,9 @@ if __name__ == '__main__':
 			current_game = game_scores[-1]
 			#printMatchResult(current_game)
 
+		ret_json = {'week' : week_number, 'data' : game_scores}
+
 		f = open(output_file % week_number, 'w')
-		f.write(json.dumps(game_scores))
+		f.write(json.dumps(ret_json))
 		f.close()
 
