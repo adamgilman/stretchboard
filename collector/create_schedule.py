@@ -19,11 +19,9 @@ for fname in dirlist:
 	week_number = int(fname.split("_")[1].split(".")[0])
 	weeks.insert(week_number, data)
 	
-#TODO - am i only doing one side, like home and not away?
-#},
-#  "ALCN": {
-#    "4": "ARST"
-#  },
+
+#teams with less than 13 rows are DII teams which play a DI team and 
+#don't have any more games listed on source materials
 for week_number, week in enumerate(weeks):
 	if week is not None: #hack for fencepost above
 		for game in week:
