@@ -1,3 +1,48 @@
+class Rank
+	ranks = false
+	constructor: ->
+		return
+
+	loadRank:(JSONdata)->
+		@ranks = JSONdata
+		return
+
+class Scores
+	_scores = false
+	constructor: ->
+		@_scores = new Array()
+
+	newWeek: (week, JSONdata)->
+		@_scores[week] = new WeekScores JSONdata
+		return
+
+	getWeek: (week)->
+		return @_scores[week]
+
+class WeekScores
+	_data: false
+	constructor: (JSONdata) ->
+		@_data = JSONdata
+		return
+
+class Schedule
+	_data = false
+	constructor: ->
+		return
+
+	teamByWeek: (team, week)->
+		if not @_data[team]?
+			throw new Error("Schedule: Team does not exist")
+		else
+			if (not @_data[team][week]? and not @_data[team][week+1]?)
+				throw new Error("Schedule: Season is over")	
+			else
+				return @_data[team][week] ? "bye"
+
+	loadSchedule: (schedule)->
+		@_data = schedule
+		return
+
 class DataLoader
 	_callback: false
 	_scoreFiles: false
@@ -6,14 +51,13 @@ class DataLoader
 	_callbackTotal: false
 
 	allLoaded: ->
-		console.log "DataLoader: All feeds loaded"
+		@_callback()
 
 	feedFinished: () ->
 		@_callbackCounter = @_callbackCounter + 1
-		console.log @_callbackCounter + " | " + @_callbackTotal
 		@allLoaded() if @_callbackCounter == @_callbackTotal
 
-	constructor: (@callback) ->
+	constructor: (@callback, scores, schedule, rank) ->
 		@_callback = @callback
 		@_scoreFiles = [
 						"output/scores/week_10.json",                                                                                                        
@@ -33,22 +77,30 @@ class DataLoader
 						"output/scores/week_9.json"
 		]
 		@_scheduleFile = "output/schedule/schedule.json"
-		@_callbackTotal = @_scoreFiles.length + 1
+		@_rankFile = "output/rank/current.json"
+
+		@_callbackTotal = @_scoreFiles.length + 1 + 1
+		#1 for schedule, 1 for rank
 
 		for feed in @_scoreFiles
 			$.getJSON feed, {}, (data)=>
-				console.log data.week
+				scores.newWeek data.week, data.data
 				@feedFinished()
 				return
 
 		$.getJSON @_scheduleFile, {}, (data)=>
-			console.log "schedule"
+			schedule.loadSchedule data
 			@feedFinished()
 			return
 
-doneLoad = () ->
-	console.log "DataLoader: callback fired"
+		$.getJSON @_rankFile, {}, (data)=>
+			rank.loadRank data
+			@feedFinished()
+			return
 
-loader = new DataLoader doneLoad
 
+window.Scores = Scores
+window.DataLoader = DataLoader
+window.Schedule = Schedule
+window.Rank = Rank
 
