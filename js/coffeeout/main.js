@@ -1,15 +1,19 @@
 (function() {
-  var currentWeek, domsched, doneLoad, loader, rank, schedule, scores;
+  var currentWeek, domsched, doneLoad, loader, loading, rank, schedTMPL, schedule, scores;
 
   doneLoad = function() {
     var builder;
     console.log("DataLoader: callback returned to main");
-    return builder = new BuildSchedule(domsched, currentWeek, schedule, scores, rank);
+    return builder = new BuildSchedule(loading, domsched, schedTMPL, currentWeek, schedule, scores, rank);
   };
 
   currentWeek = 7;
 
   domsched = $("#schedule");
+
+  loading = $("#loading");
+
+  schedTMPL = $("#tmpl_schedule_row").html();
 
   scores = new Scores();
 
@@ -23,6 +27,6 @@
 
   window.schedule = schedule;
 
-  window.debug = domsched;
+  window.rank = rank;
 
 }).call(this);

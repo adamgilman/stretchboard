@@ -34,11 +34,18 @@
 			</div> <!-- navbar.inner -->
 		</div> <!-- navbar -->
 
-		<div class="container">
+		<div class="container" id="schedule_container">
 
 			<div class="row">
-				<div class="span6 offset4 pagination-centered" id="schedule">
+				<div class="span6 offset3 pagination-centered" id="loading">
 					..... Loading .....
+				</div>
+			</div>
+			<div class="row" id="tmpl_schedule_row">
+				<div class="span6 offset3 pagination-centered">
+					
+				      <div class="span6"><%=away_team%> vs. <%=home_team%></div>
+				    
 				</div>
 			</div>
 
@@ -46,6 +53,7 @@
 		
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+		<script src="js/resig_template.js"></script>
 		<script src="js/coffeeout/loader.js"></script>
 		<script src="js/coffeeout/schedule.js"></script>
 		<script src="js/coffeeout/main.js"></script>

@@ -64,7 +64,7 @@
     Schedule.prototype.teamByWeek = function(team, week) {
       var _ref;
       if (!(this._data[team] != null)) {
-        throw new Error("Schedule: Team does not exist");
+        throw new Error("Schedule: Team [" + team + "] does not exist");
       } else {
         if (!(this._data[team][week] != null) && !(this._data[team][week + 1] != null)) {
           throw new Error("Schedule: Season is over");
@@ -89,6 +89,8 @@
     DataLoader.prototype._scoreFiles = false;
 
     DataLoader.prototype._scheduleFile = false;
+
+    DataLoader.prototype._rankFile = false;
 
     DataLoader.prototype._callbackCounter = 0;
 

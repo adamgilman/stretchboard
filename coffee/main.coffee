@@ -1,9 +1,11 @@
 doneLoad = () ->
 	console.log "DataLoader: callback returned to main"
-	builder = new BuildSchedule(domsched, currentWeek, schedule, scores, rank)
+	builder = new BuildSchedule(loading, domsched, schedTMPL,currentWeek, schedule, scores, rank)
 
 currentWeek = 7
 domsched = $ "#schedule"
+loading = $ "#loading"
+schedTMPL = $("#tmpl_schedule_row").html()
 
 scores = new Scores()
 schedule = new Schedule()
@@ -12,5 +14,4 @@ loader = new DataLoader doneLoad, scores, schedule, rank
 
 window.scores = scores
 window.schedule = schedule
-
-window.debug = domsched
+window.rank = rank

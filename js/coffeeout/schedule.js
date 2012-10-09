@@ -3,10 +3,18 @@
 
   BuildSchedule = (function() {
 
-    function BuildSchedule(domsched, currentWeek, schedule, scores) {
+    function BuildSchedule(loading, domsched, schedTMPL, currentWeek, schedule, scores, rank) {
+      var r, t, tmplData, _ref;
       console.log("BuildSchedule: constructor");
-      console.log(domsched);
-      domsched.html("loaded");
+      loading.html("loaded");
+      _ref = rank.ranks.AP;
+      for (r in _ref) {
+        t = _ref[r];
+        tmplData = [];
+        tmplData['home_team'] = t;
+        tmplData['away_team'] = schedule.teamByWeek(t, currentWeek);
+        domsched.append(tmpl(schedTMPL, tmpl));
+      }
     }
 
     return BuildSchedule;

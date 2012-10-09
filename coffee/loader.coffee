@@ -32,7 +32,7 @@ class Schedule
 
 	teamByWeek: (team, week)->
 		if not @_data[team]?
-			throw new Error("Schedule: Team does not exist")
+			throw new Error("Schedule: Team ["+team+"] does not exist")
 		else
 			if (not @_data[team][week]? and not @_data[team][week+1]?)
 				throw new Error("Schedule: Season is over")	
@@ -47,6 +47,7 @@ class DataLoader
 	_callback: false
 	_scoreFiles: false
 	_scheduleFile: false
+	_rankFile: false
 	_callbackCounter: 0
 	_callbackTotal: false
 
