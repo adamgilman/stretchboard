@@ -13,6 +13,7 @@
         tmplData = [];
         tmplData['home_team'] = t;
         tmplData['away_team'] = schedule.teamByWeek(t, currentWeek);
+        console.log(tmpl(schedTMPL, tmpl));
         domsched.append(tmpl(schedTMPL, tmpl));
       }
     }
