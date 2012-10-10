@@ -50,9 +50,9 @@ class Game
 				@home_team.loser = true
 				@winner = @away_team
 				@loser = @home_team
-		@upset = @_isUpset()
-		if @upset
-			@loser.upset = true
+		#@upset = @_isUpset()
+		#if @upset
+	#		@loser.upset = true
 
 		return 
 

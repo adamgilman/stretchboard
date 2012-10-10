@@ -88,10 +88,6 @@
           this.loser = this.home_team;
         }
       }
-      this.upset = this._isUpset();
-      if (this.upset) {
-        this.loser.upset = true;
-      }
       return;
     }
 
