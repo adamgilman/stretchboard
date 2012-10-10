@@ -2,12 +2,13 @@ class Team
 	rank: false
 	name: false
 	score: false
+	winner: false
 	constructor:(name, rank, score)->
 		@name = name
 		@rank = rank
 		@score = score
 	render:()->
-		return {name: @name, rank: @rank, score: @score}
+		return {name: @name, rank: @rank, score: @score, winner: @winner}
 
 class Week
 	home_team: false
@@ -26,7 +27,17 @@ class BuildSchedule
 		game_temp = scores.getGame(rankTeam, week)
 		home_team = new Team(game_temp.home.team, game_temp.home.rank, game_temp.home.score)
 		away_team = new Team(game_temp.away.team, game_temp.away.rank, game_temp.away.score)
-		return {home: home_team, away: away_team}
+		home_team.winner = away_team.winner = false
+		console.log home_team.score+"|"+away_team.score
+		if home_team.score > away_team.score
+			home_team.winner = true
+		else
+			away_team.winner = true
+
+		return {
+					home: home_team, 
+					away: away_team
+				}
 
 	constructor:(loading, domsched, templateHTML, currentWeek, schedule, scores, rank)->
 		console.log "BuildSchedule: constructor"

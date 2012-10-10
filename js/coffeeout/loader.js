@@ -62,12 +62,12 @@
           'away': {
             'team': 'bye',
             'rank': '',
-            'score': ''
+            'score': false
           },
           'home': {
             'team': team,
             'rank': rank.getRankForTeam(team),
-            'score': ''
+            'score': false
           }
         };
       }

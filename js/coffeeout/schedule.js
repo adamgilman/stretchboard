@@ -9,6 +9,8 @@
 
     Team.prototype.score = false;
 
+    Team.prototype.winner = false;
+
     function Team(name, rank, score) {
       this.name = name;
       this.rank = rank;
@@ -19,7 +21,8 @@
       return {
         name: this.name,
         rank: this.rank,
-        score: this.score
+        score: this.score,
+        winner: this.winner
       };
     };
 
@@ -60,6 +63,13 @@
       game_temp = scores.getGame(rankTeam, week);
       home_team = new Team(game_temp.home.team, game_temp.home.rank, game_temp.home.score);
       away_team = new Team(game_temp.away.team, game_temp.away.rank, game_temp.away.score);
+      home_team.winner = away_team.winner = false;
+      console.log(home_team.score + "|" + away_team.score);
+      if (home_team.score > away_team.score) {
+        home_team.winner = true;
+      } else {
+        away_team.winner = true;
+      }
       return {
         home: home_team,
         away: away_team

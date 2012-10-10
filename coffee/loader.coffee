@@ -35,7 +35,7 @@ class Scores
 		schedule.checkTeam(team)
 		if schedule.checkByeOrOver(team, week)
 			#it's a bye week, or the season is over.. just return false
-			return {'away' : {'team':'bye', 'rank':'', 'score':''}, 'home' : {'team':team,  'rank':rank.getRankForTeam(team), 'score':''}}
+			return {'away' : {'team':'bye', 'rank':'', 'score':false}, 'home' : {'team':team,  'rank':rank.getRankForTeam(team), 'score':false}}
 
 		week = @_scores[week]
 		found = false
