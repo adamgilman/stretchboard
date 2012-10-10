@@ -16,6 +16,11 @@ def getTeamScoreRankFromSoup(soup):
 	score = soup.find("td", {'class' : re.compile(r'\bsnap\b') } ).text
 	if not score:
 		score = False
+
+	if rank is not None:
+		rank = int(rank)
+	if score is not False:
+		score = int(score)
 	return {
 		'team' 	: soup.find("td", {'class' : re.compile(r'\bcompetitor-name\b') } ).find("strong").text,
 		'score' : score,
