@@ -1,11 +1,23 @@
 class Rank
 	ranks = false
+	ranksArray = false
 	constructor: ->
 		return
 
 	loadRank:(JSONdata)->
 		@ranks = JSONdata
+		@ranksArray = new Array()
+		@ranksArray.push("")
+		for r, t of @ranks.AP
+			@ranksArray.push(t)
 		return
+
+	getRankForTeam:(team)->
+		retRank = @ranksArray.indexOf(team)
+		if retRank is -1
+			return false
+		return retRank
+		
 
 class Scores
 	_scores = false
@@ -19,6 +31,21 @@ class Scores
 	getWeek: (week)->
 		return @_scores[week]
 
+	getGame: (team, week)->
+		schedule.checkTeam(team)
+		if schedule.checkByeOrOver(team, week)
+			#it's a bye week, or the season is over.. just return false
+			return {'away' : {'team':'bye', 'rank':'', 'score':''}, 'home' : {'team':team,  'rank':rank.getRankForTeam(team), 'score':''}}
+
+		week = @_scores[week]
+		found = false
+		for game in week._data
+			#console.log team + "=" + game.away + "|" + game.home + " >> " + (game.away is team) + "|" + (game.home is team)
+			if (game.away.team is team) or (game.home.team is team)
+				return game
+		throw new Error("Scores: Can't find game and isn't ByeSeasonOver for "+team+"|"+"week")
+		
+
 class WeekScores
 	_data: false
 	constructor: (JSONdata) ->
@@ -29,15 +56,35 @@ class Schedule
 	_data = false
 	constructor: ->
 		return
-
-	teamByWeek: (team, week)->
+	checkTeam:(team)->
 		if not @_data[team]?
 			throw new Error("Schedule: Team ["+team+"] does not exist")
+
+	checkByeWeek: (team, week)->
+		if @_data[team][week]?
+			return false
 		else
-			if (not @_data[team][week]? and not @_data[team][week+1]?)
-				throw new Error("Schedule: Season is over")	
-			else
-				return @_data[team][week] ? "bye"
+			return true
+
+	checkSeasonOver: (team, week)->
+		if (not @_data[team][week]? and not @_data[team][week+1]?)
+			return true
+		else
+			return false
+
+	checkByeOrOver: (team, week)->
+		if @checkByeWeek(team, week) or @checkSeasonOver(team, week)
+			return true
+		else
+			return false
+
+	teamByWeek: (team, week)->
+		@checkTeam(team)
+		if @checkSeasonOver(team, week)
+			throw new Error("Schedule: Season is over")	
+		if @checkByeWeek(team, week)
+			return "bye"
+		return @_data[team][week]
 
 	loadSchedule: (schedule)->
 		@_data = schedule

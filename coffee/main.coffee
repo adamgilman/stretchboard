@@ -8,17 +8,15 @@ loading = $ "#loading"
 templateHTML = '''
 <tr>
 	<td align="center">{{rank}}</td>
-	<td align="center">{{home_team}}</td>
-	<td align="center">vs.</td>
-	<td align="center">{{away_team}}</td>
-
-	<td align="center">{{home_team}}</td>
-	<td align="center">vs.</td>
-	<td align="center">{{away_team}}</td>
-
-	<td align="center">{{home_team}}</td>
-	<td align="center">vs.</td>
-	<td align="center">{{away_team}}</td>
+	{{#each games}}
+ 		<td align="center" class="hometeam">	
+ 			{{#if home_team.rank}}({{home_team.rank}}){{/if}} {{home_team.name}} 
+ 		</td>
+		<td align="center" class="vs">vs.</td>
+		<td align="center" class="awayteam">
+			{{away_team.name}} {{#if away_team.rank}}({{away_team.rank}}){{/if}}
+		</td>
+	{{/each}}
 </tr>
 '''
 

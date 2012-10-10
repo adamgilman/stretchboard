@@ -13,7 +13,7 @@
 
   loading = $("#loading");
 
-  templateHTML = '<tr>\n	<td align="center">{{rank}}</td>\n	<td align="center">{{home_team}}</td>\n	<td align="center">vs.</td>\n	<td align="center">{{away_team}}</td>\n\n	<td align="center">{{home_team}}</td>\n	<td align="center">vs.</td>\n	<td align="center">{{away_team}}</td>\n\n	<td align="center">{{home_team}}</td>\n	<td align="center">vs.</td>\n	<td align="center">{{away_team}}</td>\n</tr>';
+  templateHTML = '<tr>\n	<td align="center">{{rank}}</td>\n	{{#each games}}\n 		<td align="center" class="hometeam">	\n 			{{#if home_team.rank}}({{home_team.rank}}){{/if}} {{home_team.name}} \n 		</td>\n		<td align="center" class="vs">vs.</td>\n		<td align="center" class="awayteam">\n			{{away_team.name}} {{#if away_team.rank}}({{away_team.rank}}){{/if}}\n		</td>\n	{{/each}}\n</tr>';
 
   scores = new Scores();
 

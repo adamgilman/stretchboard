@@ -2,16 +2,35 @@
   var DataLoader, Rank, Schedule, Scores, WeekScores;
 
   Rank = (function() {
-    var ranks;
+    var ranks, ranksArray;
 
     ranks = false;
+
+    ranksArray = false;
 
     function Rank() {
       return;
     }
 
     Rank.prototype.loadRank = function(JSONdata) {
+      var r, t, _ref;
       this.ranks = JSONdata;
+      this.ranksArray = new Array();
+      this.ranksArray.push("");
+      _ref = this.ranks.AP;
+      for (r in _ref) {
+        t = _ref[r];
+        this.ranksArray.push(t);
+      }
+    };
+
+    Rank.prototype.getRankForTeam = function(team) {
+      var retRank;
+      retRank = this.ranksArray.indexOf(team);
+      if (retRank === -1) {
+        return false;
+      }
+      return retRank;
     };
 
     return Rank;
@@ -33,6 +52,35 @@
 
     Scores.prototype.getWeek = function(week) {
       return this._scores[week];
+    };
+
+    Scores.prototype.getGame = function(team, week) {
+      var found, game, _i, _len, _ref;
+      schedule.checkTeam(team);
+      if (schedule.checkByeOrOver(team, week)) {
+        return {
+          'away': {
+            'team': 'bye',
+            'rank': '',
+            'score': ''
+          },
+          'home': {
+            'team': team,
+            'rank': rank.getRankForTeam(team),
+            'score': ''
+          }
+        };
+      }
+      week = this._scores[week];
+      found = false;
+      _ref = week._data;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        game = _ref[_i];
+        if ((game.away.team === team) || (game.home.team === team)) {
+          return game;
+        }
+      }
+      throw new Error("Scores: Can't find game and isn't ByeSeasonOver for " + team + "|" + "week");
     };
 
     return Scores;
@@ -61,17 +109,45 @@
       return;
     }
 
-    Schedule.prototype.teamByWeek = function(team, week) {
-      var _ref;
+    Schedule.prototype.checkTeam = function(team) {
       if (!(this._data[team] != null)) {
         throw new Error("Schedule: Team [" + team + "] does not exist");
-      } else {
-        if (!(this._data[team][week] != null) && !(this._data[team][week + 1] != null)) {
-          throw new Error("Schedule: Season is over");
-        } else {
-          return (_ref = this._data[team][week]) != null ? _ref : "bye";
-        }
       }
+    };
+
+    Schedule.prototype.checkByeWeek = function(team, week) {
+      if (this._data[team][week] != null) {
+        return false;
+      } else {
+        return true;
+      }
+    };
+
+    Schedule.prototype.checkSeasonOver = function(team, week) {
+      if (!(this._data[team][week] != null) && !(this._data[team][week + 1] != null)) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    Schedule.prototype.checkByeOrOver = function(team, week) {
+      if (this.checkByeWeek(team, week) || this.checkSeasonOver(team, week)) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    Schedule.prototype.teamByWeek = function(team, week) {
+      this.checkTeam(team);
+      if (this.checkSeasonOver(team, week)) {
+        throw new Error("Schedule: Season is over");
+      }
+      if (this.checkByeWeek(team, week)) {
+        return "bye";
+      }
+      return this._data[team][week];
     };
 
     Schedule.prototype.loadSchedule = function(schedule) {
