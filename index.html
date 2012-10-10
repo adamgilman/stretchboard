@@ -10,8 +10,8 @@
 		body {
 				padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
 				font-family: 'Inconsolata', sans-serif;
+				font-size:12px;
 			}
-		td.vs { width: 25px;}
 		td.awayteam {
 			text-align: right;
 			padding-right: 5px;
@@ -58,15 +58,29 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="span10 offset1">
-					<table width="100%" id="schedTable">
-						<tr>
-							<th>Rank</th>
-							<th colspan=3>Previous Week</th>
-							<th colspan=3>Current Week</th>
-							<th colspan=3>Next Week</th>
-						</tr>
-					<table>
+				<div class="span12 pagination-centered">
+					<table width="100%" id="schedTable" cellspacing=50>
+						<thead>
+							<tr>
+								<th>Current Rank (AP)</th>
+								<th colspan=3>Three Weeks Ago</th>
+								<th colspan=3>Two Weeks Ago</th>
+								<th colspan=3>Last Week</th>
+								<th colspan=3>Current Week</th>
+								<th colspan=3>Two Weeks From Now</th>
+							</tr>
+						</thead>						
+					</table>
+					<hr/>
+					<center>
+						<table width="30%">
+							<tr>
+								<td class="loser">Loser</td>
+								<td class="winner">Winner</td>
+								<td class="upset">Upset</td>		
+							</tr>
+						</table>
+					</center>
 			</div>
 			
 

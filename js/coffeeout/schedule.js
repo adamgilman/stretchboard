@@ -123,7 +123,7 @@
       for (r in _ref) {
         t = _ref[r];
         tmplData = new Array();
-        for (weekNumber = _i = _ref1 = currentWeek - 2, _ref2 = currentWeek + 1; _ref1 <= _ref2 ? _i < _ref2 : _i > _ref2; weekNumber = _ref1 <= _ref2 ? ++_i : --_i) {
+        for (weekNumber = _i = _ref1 = currentWeek - 3, _ref2 = currentWeek + 2; _ref1 <= _ref2 ? _i < _ref2 : _i > _ref2; weekNumber = _ref1 <= _ref2 ? ++_i : --_i) {
           week = this._buildWeek(t, weekNumber);
           tempGame = new Game(week.home, week.away, weekNumber);
           tmplData.push(tempGame.render());

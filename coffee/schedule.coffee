@@ -74,7 +74,7 @@ class BuildSchedule
 		console.log "BuildSchedule: constructor"
 		for r, t of rank.ranks.AP #r=rank, t=rank
 			tmplData = new Array()
-			for weekNumber in [currentWeek-2...currentWeek+1]
+			for weekNumber in [currentWeek-3...currentWeek+2]
 				week = @_buildWeek(t, weekNumber)
 				tempGame = new Game(week.home, week.away, weekNumber)
 				tmplData.push(tempGame.render())
