@@ -1,19 +1,19 @@
 (function() {
-  var currentWeek, domsched, doneLoad, loader, loading, rank, schedTMPL, schedule, scores;
+  var currentWeek, domsched, doneLoad, loader, loading, rank, schedule, scores, templateHTML;
 
   doneLoad = function() {
     var builder;
     console.log("DataLoader: callback returned to main");
-    return builder = new BuildSchedule(loading, domsched, schedTMPL, currentWeek, schedule, scores, rank);
+    return builder = new BuildSchedule(loading, domsched, templateHTML, currentWeek, schedule, scores, rank);
   };
 
   currentWeek = 7;
 
-  domsched = $("#schedule");
+  domsched = $("#schedTable");
 
   loading = $("#loading");
 
-  schedTMPL = $("#tmpl_schedule_row").html();
+  templateHTML = '<tr>\n	<td align="center">{{rank}}</td>\n	<td align="center">{{home_team}}</td>\n	<td align="center">vs.</td>\n	<td align="center">{{away_team}}</td>\n\n	<td align="center">{{home_team}}</td>\n	<td align="center">vs.</td>\n	<td align="center">{{away_team}}</td>\n\n	<td align="center">{{home_team}}</td>\n	<td align="center">vs.</td>\n	<td align="center">{{away_team}}</td>\n</tr>';
 
   scores = new Scores();
 

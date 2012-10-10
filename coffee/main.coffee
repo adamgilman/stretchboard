@@ -1,11 +1,26 @@
 doneLoad = () ->
 	console.log "DataLoader: callback returned to main"
-	builder = new BuildSchedule(loading, domsched, schedTMPL,currentWeek, schedule, scores, rank)
+	builder = new BuildSchedule(loading, domsched, templateHTML, currentWeek, schedule, scores, rank)
 
 currentWeek = 7
-domsched = $ "#schedule"
+domsched = $ "#schedTable"
 loading = $ "#loading"
-schedTMPL = $("#tmpl_schedule_row").html()
+templateHTML = '''
+<tr>
+	<td align="center">{{rank}}</td>
+	<td align="center">{{home_team}}</td>
+	<td align="center">vs.</td>
+	<td align="center">{{away_team}}</td>
+
+	<td align="center">{{home_team}}</td>
+	<td align="center">vs.</td>
+	<td align="center">{{away_team}}</td>
+
+	<td align="center">{{home_team}}</td>
+	<td align="center">vs.</td>
+	<td align="center">{{away_team}}</td>
+</tr>
+'''
 
 scores = new Scores()
 schedule = new Schedule()

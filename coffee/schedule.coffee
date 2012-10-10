@@ -1,12 +1,17 @@
 class BuildSchedule
-	constructor:(loading, domsched, schedTMPL,currentWeek, schedule, scores, rank)->
+	constructor:(loading, domsched, templateHTML, currentWeek, schedule, scores, rank)->
 		console.log "BuildSchedule: constructor"
 		loading.html("loaded")
 		for r, t of rank.ranks.AP #r=rank, t=rank
 			tmplData = []
+			tmplData['rank']	  = r
 			tmplData['home_team'] = t
 			tmplData['away_team'] = schedule.teamByWeek(t, currentWeek)
-			console.log tmpl schedTMPL, tmpl
-			domsched.append(tmpl schedTMPL, tmpl)
+			
+			template = Handlebars.compile templateHTML
+			result = template tmplData
+
+			domsched.find("tr:last") 
+				.after(result)
 
 window.BuildSchedule = BuildSchedule
