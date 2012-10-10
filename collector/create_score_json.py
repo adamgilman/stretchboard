@@ -13,9 +13,12 @@ def getTeamScoreRankFromSoup(soup):
 		rank = soup.find("td", {'class' : re.compile(r'\bcompetitor-name\b') } ).find("span").text.strip("(").strip(")")
 	except AttributeError:
 		rank = None
+	score = soup.find("td", {'class' : re.compile(r'\bsnap\b') } ).text
+	if not score:
+		score = False
 	return {
 		'team' 	: soup.find("td", {'class' : re.compile(r'\bcompetitor-name\b') } ).find("strong").text,
-		'score' : soup.find("td", {'class' : re.compile(r'\bsnap\b') } ).text,
+		'score' : score,
 		'rank'	: rank
 	}
 
