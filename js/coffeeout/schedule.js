@@ -66,6 +66,13 @@
       }
     };
 
+    Game.prototype._isPlayed = function() {
+      if (!this.home_team.score) {
+        return false;
+      }
+      return !schedule.checkByeOrOver(this.home_team.name, this.week);
+    };
+
     function Game(home_team, away_team, week) {
       this.week = week;
       this.home_team = home_team;
@@ -74,7 +81,7 @@
       this.away_team.winner = false;
       this.home_team.loser = false;
       this.away_team.loser = false;
-      this.played = !schedule.checkByeOrOver(this.home_team.name, this.week);
+      this.played = this._isPlayed();
       if (this.played) {
         if (this.home_team.score > this.away_team.score) {
           this.home_team.winner = true;

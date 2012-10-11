@@ -30,6 +30,12 @@ class Game
 			else
 				@upset = (@home_team.rank > @away_team.rank) or (@away_team.rank != false and @home_team.rank = false)
 
+	_isPlayed:() ->
+		if !@home_team.score
+			return false
+		return !schedule.checkByeOrOver(@home_team.name, @week)
+			
+
 	constructor:(home_team, away_team, week)->
 		@week = week
 		@home_team = home_team
@@ -38,7 +44,7 @@ class Game
 		@away_team.winner = false
 		@home_team.loser = false
 		@away_team.loser = false
-		@played = !schedule.checkByeOrOver(@home_team.name, @week)
+		@played = @_isPlayed()
 		if @played #if false then it's a bye week or hasn't happened
 			if @home_team.score > @away_team.score
 				@home_team.winner = true
@@ -50,9 +56,9 @@ class Game
 				@home_team.loser = true
 				@winner = @away_team
 				@loser = @home_team
-		#@upset = @_isUpset()
-		#if @upset
-	#		@loser.upset = true
+			#@upset = @_isUpset()
+			#if @upset
+		#		@loser.upset = true
 
 		return 
 
