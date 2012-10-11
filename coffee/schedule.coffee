@@ -39,7 +39,7 @@ class Game
 		@home_team.loser = false
 		@away_team.loser = false
 		@played = !schedule.checkByeOrOver(@home_team.name, @week)
-		if @home_team.score != false #if false then it's a bye week or hasn't happened
+		if @played #if false then it's a bye week or hasn't happened
 			if @home_team.score > @away_team.score
 				@home_team.winner = true
 				@away_team.loser = true
@@ -86,12 +86,7 @@ class BuildSchedule
 
 			template = Handlebars.compile templateHTML
 			result = template retData
-
-			#domsched.find("tr:last").after(result)
 			domsched.append(result)
-			#console.log(result)
-
-			
 		loading.html("loaded")
 		loading.hide()
 		return

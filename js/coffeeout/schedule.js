@@ -75,7 +75,7 @@
       this.home_team.loser = false;
       this.away_team.loser = false;
       this.played = !schedule.checkByeOrOver(this.home_team.name, this.week);
-      if (this.home_team.score !== false) {
+      if (this.played) {
         if (this.home_team.score > this.away_team.score) {
           this.home_team.winner = true;
           this.away_team.loser = true;
