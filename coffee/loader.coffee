@@ -38,8 +38,8 @@ class Scores
 	isRankUp:(team, week)->
 		if team == "bye"
 			return false
-		current_rank = @getRankForGame(team, week)
-		last_rank = @getRankForGame(team, week-1)
+		current_rank = @getRankForGame(team, week) ? Number.MAX_VALUE
+		last_rank = @getRankForGame(team, week-1) ? Number.MAX_VALUE
 		if current_rank < last_rank
 			return true
 		else
@@ -48,8 +48,9 @@ class Scores
 	isRankDown:(team, week)->
 		if team == "bye"
 			return false
-		current_rank = @getRankForGame(team, week)
-		last_rank = @getRankForGame(team, week-1)
+		current_rank = @getRankForGame(team, week) ? Number.MAX_VALUE
+		last_rank = @getRankForGame(team, week-1) ? Number.MAX_VALUE
+
 		if current_rank > last_rank
 			return true
 		else

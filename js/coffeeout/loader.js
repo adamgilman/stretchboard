@@ -61,12 +61,12 @@
     };
 
     Scores.prototype.isRankUp = function(team, week) {
-      var current_rank, last_rank;
+      var current_rank, last_rank, _ref, _ref1;
       if (team === "bye") {
         return false;
       }
-      current_rank = this.getRankForGame(team, week);
-      last_rank = this.getRankForGame(team, week - 1);
+      current_rank = (_ref = this.getRankForGame(team, week)) != null ? _ref : Number.MAX_VALUE;
+      last_rank = (_ref1 = this.getRankForGame(team, week - 1)) != null ? _ref1 : Number.MAX_VALUE;
       if (current_rank < last_rank) {
         return true;
       } else {
@@ -75,12 +75,12 @@
     };
 
     Scores.prototype.isRankDown = function(team, week) {
-      var current_rank, last_rank;
+      var current_rank, last_rank, _ref, _ref1;
       if (team === "bye") {
         return false;
       }
-      current_rank = this.getRankForGame(team, week);
-      last_rank = this.getRankForGame(team, week - 1);
+      current_rank = (_ref = this.getRankForGame(team, week)) != null ? _ref : Number.MAX_VALUE;
+      last_rank = (_ref1 = this.getRankForGame(team, week - 1)) != null ? _ref1 : Number.MAX_VALUE;
       if (current_rank > last_rank) {
         return true;
       } else {
