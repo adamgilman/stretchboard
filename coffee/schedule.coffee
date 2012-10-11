@@ -82,13 +82,18 @@ class BuildSchedule
 			retData = []
 			retData['games'] = tmplData
 			retData['rank'] = r
+			retData['rankteam'] = t
 
 			template = Handlebars.compile templateHTML
 			result = template retData
 
-			domsched.find("tr:last") 
-				.after(result)
+			#domsched.find("tr:last").after(result)
+			domsched.append(result)
+			#console.log(result)
+
+			
 		loading.html("loaded")
 		loading.hide()
+		return
 
 window.BuildSchedule = BuildSchedule

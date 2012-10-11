@@ -131,12 +131,14 @@
         retData = [];
         retData['games'] = tmplData;
         retData['rank'] = r;
+        retData['rankteam'] = t;
         template = Handlebars.compile(templateHTML);
         result = template(retData);
-        domsched.find("tr:last").after(result);
+        domsched.append(result);
       }
       loading.html("loaded");
       loading.hide();
+      return;
     }
 
     return BuildSchedule;
