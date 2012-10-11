@@ -20,7 +20,7 @@ For the technically minded there's actually two sides to the project
 
 The [data collector](https://github.com/adamgilman/stretchboard) is written in Python and is mostly contained in the [scores generator](https://github.com/adamgilman/stretchboard/blob/master/collector/create_score_json.py) and the [schedule generator](https://github.com/adamgilman/stretchboard/blob/master/collector/create_schedule.py)
 
-The [web front end](https://github.com/adamgilman/stretchboard/tree/gh-pages) is a HTML powered by (CoffeeScript)[http://coffeescript.org] which handles all of the loading, processing of schedules, scores and building the actualy page you see. It's an almost blank HTML page before the CoffeeScript get's going.
+The [web front end](https://github.com/adamgilman/stretchboard/tree/gh-pages) is a HTML powered by [CoffeeScript](http://coffeescript.org) which handles all of the loading, processing of schedules, scores and building the actualy page you see. It's an almost blank HTML page before the CoffeeScript get's going.
 
 There's two main CoffeeScript components in the app
 
