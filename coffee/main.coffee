@@ -6,7 +6,7 @@ currentWeek = 7
 domsched = $ "#schedTable"
 loading = $ "#loading"
 templateHTML = '''
-<div class="rowrank">#{{rank}} {{rankteam}}</div>
+<div class="rowrank"><strong>#{{rank}} {{rankteam}}</strong></div>
 {{#each games}}
 	<div class="gameblock">
 		<span class="updown">
