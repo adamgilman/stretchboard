@@ -7,6 +7,13 @@
 		<link href="css/bootstrap.css" rel="stylesheet">
 		<link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
 		<style>
+		body {
+				padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+				font-family: 'Inconsolata', sans-serif;
+				font-size:12.5px;
+				background-image:url('img/paper_@2X.png');
+			}
+
 		.upset { background-color: #FF8080 ! important}
 		.loser { background-color: #FFE6E6;}
 		.winner { background-color: #D6F5D6;}
@@ -16,11 +23,7 @@
 		    margin: 0;
 		}
 
-		body {
-				padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-				font-family: 'Inconsolata', sans-serif;
-				font-size:12px;
-			}
+		
 		p.clear{
 			clear:both;
 			height:20px;
@@ -31,8 +34,12 @@
 		    float: left;
 		    right: -35px;
 		    width: 55px;
-		}
+		}	
 
+		.updown {
+			display: inline-block;
+			width: 10px;
+		}
 
 		.rank{ 
 			display: inline-block;
