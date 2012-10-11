@@ -12,7 +12,7 @@ class Team
 	setUpset:()->
 		@upset = true
 	render:()->
-		return {name: @name, rank: @rank, score: @score, winner: @winner, loser: @loser, upset: @upset}
+		return {name: @name.replace(";",""), rank: @rank, score: @score, winner: @winner, loser: @loser, upset: @upset}
 
 class Game
 	week: false
@@ -24,11 +24,14 @@ class Game
 	played: false
 
 	_isUpset:() ->
-		if @played #bye weeks or an over season isn't an upset
-			if @home_team.winner
-				@upset = (@away_team.rank > @home_team.rank) or (@home_team.rank != false and @away_team.rank = false)
-			else
-				@upset = (@home_team.rank > @away_team.rank) or (@away_team.rank != false and @home_team.rank = false)
+		if @played
+			if (@winner.rank == null) and not (@loser.rank == null)
+				return true
+			
+			if !(@loser.rank == null)
+				if (@winner.rank > @loser.rank)
+					return true
+		return false #finality.. always false unless above true
 
 	_isPlayed:() ->
 		if !@home_team.score
@@ -56,9 +59,9 @@ class Game
 				@home_team.loser = true
 				@winner = @away_team
 				@loser = @home_team
-			#@upset = @_isUpset()
-			#if @upset
-		#		@loser.upset = true
+			@upset = @_isUpset()
+			if @upset
+				@loser.upset = true
 
 		return 
 

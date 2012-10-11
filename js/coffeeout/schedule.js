@@ -27,7 +27,7 @@
 
     Team.prototype.render = function() {
       return {
-        name: this.name,
+        name: this.name.replace(";", ""),
         rank: this.rank,
         score: this.score,
         winner: this.winner,
@@ -58,12 +58,16 @@
 
     Game.prototype._isUpset = function() {
       if (this.played) {
-        if (this.home_team.winner) {
-          return this.upset = (this.away_team.rank > this.home_team.rank) || (this.home_team.rank !== false && (this.away_team.rank = false));
-        } else {
-          return this.upset = (this.home_team.rank > this.away_team.rank) || (this.away_team.rank !== false && (this.home_team.rank = false));
+        if ((this.winner.rank === null) && !(this.loser.rank === null)) {
+          return true;
+        }
+        if (!(this.loser.rank === null)) {
+          if (this.winner.rank > this.loser.rank) {
+            return true;
+          }
         }
       }
+      return false;
     };
 
     Game.prototype._isPlayed = function() {
@@ -93,6 +97,10 @@
           this.home_team.loser = true;
           this.winner = this.away_team;
           this.loser = this.home_team;
+        }
+        this.upset = this._isUpset();
+        if (this.upset) {
+          this.loser.upset = true;
         }
       }
       return;
