@@ -50,6 +50,44 @@
       this._scores[week] = new WeekScores(JSONdata);
     };
 
+    Scores.prototype.getRankForGame = function(team, week) {
+      var game;
+      game = this.getGame(team, week);
+      if (game.home.team === team) {
+        return game.home.rank;
+      } else {
+        return game.away.rank;
+      }
+    };
+
+    Scores.prototype.isRankUp = function(team, week) {
+      var current_rank, last_rank;
+      if (team === "bye") {
+        return false;
+      }
+      current_rank = this.getRankForGame(team, week);
+      last_rank = this.getRankForGame(team, week - 1);
+      if (current_rank < last_rank) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    Scores.prototype.isRankDown = function(team, week) {
+      var current_rank, last_rank;
+      if (team === "bye") {
+        return false;
+      }
+      current_rank = this.getRankForGame(team, week);
+      last_rank = this.getRankForGame(team, week - 1);
+      if (current_rank > last_rank) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
     Scores.prototype.getWeek = function(week) {
       return this._scores[week];
     };

@@ -28,6 +28,34 @@ class Scores
 		@_scores[week] = new WeekScores JSONdata
 		return
 
+	getRankForGame:(team, week)->
+		game = @getGame(team, week)
+		if game.home.team is team
+			return game.home.rank
+		else
+			return game.away.rank
+
+	isRankUp:(team, week)->
+		if team == "bye"
+			return false
+		current_rank = @getRankForGame(team, week)
+		last_rank = @getRankForGame(team, week-1)
+		if current_rank < last_rank
+			return true
+		else
+			return false
+
+	isRankDown:(team, week)->
+		if team == "bye"
+			return false
+		current_rank = @getRankForGame(team, week)
+		last_rank = @getRankForGame(team, week-1)
+		if current_rank > last_rank
+			return true
+		else
+			return false
+
+
 	getWeek: (week)->
 		return @_scores[week]
 

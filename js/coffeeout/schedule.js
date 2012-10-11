@@ -15,6 +15,10 @@
 
     Team.prototype.upset = false;
 
+    Team.prototype.uprank = false;
+
+    Team.prototype.downrank = false;
+
     function Team(name, rank, score) {
       this.name = name;
       this.rank = rank;
@@ -32,7 +36,9 @@
         score: this.score,
         winner: this.winner,
         loser: this.loser,
-        upset: this.upset
+        upset: this.upset,
+        uprank: this.uprank,
+        downrank: this.downrank
       };
     };
 
@@ -86,6 +92,10 @@
       this.home_team.loser = false;
       this.away_team.loser = false;
       this.played = this._isPlayed();
+      this.home_team.uprank = scores.isRankUp(this.home_team.name, this.week);
+      this.home_team.downrank = scores.isRankDown(this.home_team.name, this.week);
+      this.away_team.uprank = scores.isRankUp(this.away_team.name, this.week);
+      this.away_team.downrank = scores.isRankDown(this.away_team.name, this.week);
       if (this.played) {
         if (this.home_team.score > this.away_team.score) {
           this.home_team.winner = true;

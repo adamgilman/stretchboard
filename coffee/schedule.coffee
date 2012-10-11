@@ -5,6 +5,8 @@ class Team
 	winner: false
 	loser: false
 	upset: false
+	uprank: false
+	downrank: false
 	constructor:(name, rank, score)->
 		@name = name
 		@rank = rank
@@ -12,7 +14,16 @@ class Team
 	setUpset:()->
 		@upset = true
 	render:()->
-		return {name: @name.replace(";",""), rank: @rank, score: @score, winner: @winner, loser: @loser, upset: @upset}
+		return {
+					name: @name.replace(";",""), 
+					rank: @rank, 
+					score: @score, 
+					winner: @winner, 
+					loser: @loser, 
+					upset: @upset,
+					uprank: @uprank,
+					downrank: @downrank,
+				}
 
 class Game
 	week: false
@@ -37,7 +48,6 @@ class Game
 		if !@home_team.score
 			return false
 		return !schedule.checkByeOrOver(@home_team.name, @week)
-			
 
 	constructor:(home_team, away_team, week)->
 		@week = week
@@ -48,6 +58,14 @@ class Game
 		@home_team.loser = false
 		@away_team.loser = false
 		@played = @_isPlayed()
+
+
+		@home_team.uprank = scores.isRankUp(@home_team.name, @week)
+		@home_team.downrank = scores.isRankDown(@home_team.name, @week)
+
+		@away_team.uprank = scores.isRankUp(@away_team.name, @week)
+		@away_team.downrank = scores.isRankDown(@away_team.name, @week)
+
 		if @played #if false then it's a bye week or hasn't happened
 			if @home_team.score > @away_team.score
 				@home_team.winner = true
