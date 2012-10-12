@@ -2,9 +2,18 @@
   var currentWeek, domsched, doneLoad, loader, loading, rank, schedule, scores, templateHTML;
 
   doneLoad = function() {
-    var builder;
+    var builder, header, headertxt, _i, _len, _ref, _results;
     console.log("DataLoader: callback returned to main");
-    return builder = new BuildSchedule(loading, domsched, templateHTML, currentWeek, schedule, scores, rank);
+    builder = new BuildSchedule(loading, domsched, templateHTML, currentWeek, schedule, scores, rank);
+    headertxt = currentWeek - 2;
+    _ref = $(".weekHeader");
+    _results = [];
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      header = _ref[_i];
+      $(header).html("Week " + headertxt);
+      _results.push(headertxt = headertxt + 1);
+    }
+    return _results;
   };
 
   currentWeek = 7;
@@ -28,5 +37,7 @@
   window.schedule = schedule;
 
   window.rank = rank;
+
+  window.currentWeek = currentWeek;
 
 }).call(this);

@@ -1,6 +1,10 @@
 doneLoad = () ->
 	console.log "DataLoader: callback returned to main"
 	builder = new BuildSchedule(loading, domsched, templateHTML, currentWeek, schedule, scores, rank)
+	headertxt = currentWeek - 2
+	for header in $(".weekHeader")
+		$(header).html("Week " + headertxt)
+		headertxt = headertxt + 1
 
 currentWeek = 7
 domsched = $ "#schedTable"
@@ -37,3 +41,4 @@ loader = new DataLoader doneLoad, scores, schedule, rank
 window.scores = scores
 window.schedule = schedule
 window.rank = rank
+window.currentWeek = currentWeek
