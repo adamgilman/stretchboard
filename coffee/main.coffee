@@ -1,7 +1,7 @@
 doneLoad = () ->
 	console.log "DataLoader: callback returned to main"
 	builder = new BuildSchedule(loading, domsched, templateHTML, currentWeek, schedule, scores, rank)
-	headertxt = currentWeek - 1
+	headertxt = currentWeek - 3
 	for header in $(".weekHeader")
 		$(header).html("Week " + headertxt)
 		headertxt = headertxt + 1
