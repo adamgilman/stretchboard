@@ -5,7 +5,7 @@
     var builder, header, headertxt, _i, _len, _ref, _results;
     console.log("DataLoader: callback returned to main");
     builder = new BuildSchedule(loading, domsched, templateHTML, currentWeek, schedule, scores, rank);
-    headertxt = currentWeek - 3;
+    headertxt = currentWeek - 1;
     _ref = $(".weekHeader");
     _results = [];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
